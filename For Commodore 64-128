@@ -1,0 +1,63 @@
+10 rem d&d/ad&d character attributes
+20 rem randomizer/generator
+30 :
+40 rem s = str, i = int, d = dex, w = wis, c = con, ch= chas, c = con, ch= cha
+50 r3=0:r4=0:r5=0:r6=0:r7=0:r8=0:r9=0:ra=0
+60 rb=0:rc=0:rd=0:re=0:rf=0:rg=0:rh=0:ri=0
+70 d1=0:d2=0:d3=0
+80 print chr$(147)
+90 poke 54286,255 :rem  invoking sid for seeding
+100 poke 54287,255
+110 poke 54290,128
+120 input "how many characters do you wish to roll up";h
+130 for hr = 1 to h
+140 print"rolling character ";hr; ": " "
+150 for dx=1 to 6 :read ca$
+160 gosub 570
+170 print "3d6: "; d1; d2; d3;
+180 dt=d1+d2+d3
+190 if dt=3 then r3=r3+1 : rem incrementers for determining distribution
+200 if dt=4 then r4=r4+1 : rem (should be a symmetrical bell curve!)
+210 if dt=5 then r5=r5+1
+220 if dt=6 then r6=r6+1
+230 if dt=7 then r7=r7+1
+240 if dt=8 then r8=r8+1
+250 if dt=9 then r9=r9+1
+260 if dt=10 then ra=ra+1
+270 if dt=11 then rb=rb+1
+280 if dt=12 then rc=rc+1
+290 if dt=13 then rd=rd+1
+300 if dt=14 then re=re+1
+310 if dt=15 then rf=rf+1
+320 if dt=16 then rg=rg+1
+330 if dt=17 then rh=rh+1
+340 if dt=18 then ri=ri+1
+350 if dx=1 then let s=dt
+360 if dx=1 then print "--- ";ca$;": ";dt
+370 if dx=2 then let i=dt
+380 if dx=2 then print "--- ";ca$;": ";dt
+390 if dx=3 then let d=dt
+400 if dx=3 then print "--- ";ca$;": ";dt
+410 if dx=4 then let w=dt
+420 if dx=4 then print "--- ";ca$;": ";dt
+430 if dx=5 then let c=dt
+440 if dx=5 then print "--- ";ca$;": ";dt
+450 if dx=6 then let ch=dt
+460 if dx=6 then print "--- ";ca$;": ";dt
+470 next dx
+480 if h=hr then end
+490 s=0:i=0:d=0:w=0:c=0:ch=0:dx=0:restore:rem reset vars/pointer
+500 print "3:";r3;"4:";r4;"5:";r5;"6:";r6
+510 print "7:";r7;"8:";r8;"9:";r9;"10:";ra
+520 print "11:";rb;"12:";rc;"13:";rd
+530 print "14:";re;"15:";rf;"16:";rg
+540 print "17:";rh;"18:";ri:print
+550 next hr
+560 data "str","int","dex","wis","con","cha"
+570 x=peek(54299)
+580 y=peek(54299)
+590 z=peek(54299)
+600 d1=int(rnd(x)*6+1)
+610 d2=int(rnd(y)*6+1)
+620 d3=int(rnd(z)*6+1)
+630 return
